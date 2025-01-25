@@ -3,8 +3,9 @@ package retry
 import (
 	"context"
 	"fmt"
+	"github.com/mhpenta/app/jsonext"
 	"log/slog"
-	"modeledge-go/ext/jsonext"
+
 	"time"
 )
 

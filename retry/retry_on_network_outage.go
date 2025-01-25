@@ -3,8 +3,8 @@ package retry
 import (
 	"context"
 	"fmt"
+	"github.com/mhpenta/app/httpext"
 	"log/slog"
-	"modeledge-go/ext/httpext"
 	"time"
 )
 
