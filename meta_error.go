@@ -59,6 +59,19 @@ func Slog(err error) []interface{} {
 	}
 }
 
+// NewMetaErrorOptions creates a new MetaError with custom options.
+//
+// Parameters:
+//   - err: The error to wrap
+//   - skip: Number of stack frames to skip when capturing caller info.
+//     Default is 2 to skip NewMetaError + NewMetaErrorOptions frames.
+//     Use 3+ when adding wrapper functions to skip their frames too.
+//     Example:
+//     func CustomWrapper(err) *MetaError {
+//     return NewMetaErrorOptions(err, 3, true, true) // Skip CustomWrapper + default 2
+//     }
+//   - captureStack: Whether to capture and store the stack trace
+//   - asCSV: Whether error should be formatted as CSV
 func NewMetaErrorOptions(err error, skip int, captureStack bool, asCSV bool) *MetaError {
 	pc, file, line, ok := runtime.Caller(skip)
 	if !ok {

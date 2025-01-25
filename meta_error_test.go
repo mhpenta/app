@@ -204,7 +204,7 @@ func TestMetaErrorFuncName(t *testing.T) {
 	var err *MetaError
 	func() {
 		baseErr := errors.New("base error")
-		err = NewMetaError(baseErr)
+		err = NewMetaErrorOptions(baseErr, 2, true, true)
 	}()
 
 	if err.Func == "" {
@@ -223,8 +223,8 @@ func TestMetaErrorFuncName(t *testing.T) {
 		t.Error("Expected function name to be TestMetaErrorFuncName, received: ", err.Func)
 	}
 
-	if err.Package != "modeledge-go/ext/app" {
-		t.Error("Expected function name to be TestMetaErrorFuncName, received: ", err.Func)
+	if err.Package != "github.com/mhpenta/app" {
+		t.Error("Expected package name to be github.com/mhpenta/app, received: ", err.Package)
 	}
 
 	pkgPath, recvName, recvPtr, typeGeneric, funcGeneric, funcNameSmall, notice := parseFuncName("modeledge-go/internal/routes.RegisterToolRoutes.FakeError.func1")
@@ -235,13 +235,4 @@ func TestMetaErrorFuncName(t *testing.T) {
 	slog.Info("funcname", "pkgPath", pkgPath, "recvName", recvName, "recvPtr", recvPtr, "typeGeneric", typeGeneric, "funcGeneric", funcGeneric, "funcNameSmall", funcNameSmall)
 	slog.Info("funcname", "notice", notice)
 
-	/*
-		//  TODO fix
-		if err.Func != "TestMetaErrorFuncName" {
-			t.Error("Expected function name to be TestMetaErrorFuncName, received: ", err.Func)
-		}
-
-		if err.Package != "modeledge-go/ext/app" {
-			t.Error("Expected function name to be \"modeledge-go/ext/app, received: ", err.Package)
-		}*/
 }
