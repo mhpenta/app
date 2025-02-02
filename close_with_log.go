@@ -9,9 +9,13 @@ import (
 
 // CloseWithLog closes the given io.Closer and logs any error that occurs to slog.
 //
-//	if err := closeable.Close(); err != nil {
-//	   slog.Error("Error closing resource", "serviceName", serviceName, "err", err)
-//	}
+// Example usage:
+//
+//	    file, err := os.Open(filename)
+//		if err != nil {
+//			return nil, err
+//		}
+//		defer app.CloseWithLog(file, "file")
 func CloseWithLog(closeable io.Closer, serviceName string) {
 	if err := closeable.Close(); err != nil {
 		slog.Error("Error closing resource", "serviceName", serviceName, "err", err)
